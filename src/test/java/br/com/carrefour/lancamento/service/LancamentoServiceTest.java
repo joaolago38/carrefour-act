@@ -30,8 +30,8 @@ public class LancamentoServiceTest {
     @Test
     @DisplayName("Salvando um Lancamento")
     public void quandoSalvaUmLancamento() {
-        Lancamento lancamento = Lancamento.builder().descricãoLancamento("lancamento de credito")
-                .dataLancamento(LocalDateTime.now()).tipoLancamento("credito").id(2).build();
+        Lancamento lancamento = Lancamento.builder().descricaoLancamento("lancamento de credito")
+                .dataLancamento("02/03/2023").tipoLancamento("credito").id(2).build();
         when(lancamentoRepository.save(ArgumentMatchers.any(Lancamento.class))).thenReturn(lancamento);
         Lancamento created = lancamentoService.save(lancamento);
         assertThat(created.getId()).isSameAs(lancamento.getId());
@@ -41,8 +41,8 @@ public class LancamentoServiceTest {
     @Test
     @DisplayName("buscando  um Lancamento por id")
     public void quandoBuscaLancamentoPorID(){
-        Lancamento lancamento = Lancamento.builder().descricãoLancamento("lancamento de credito")
-                .dataLancamento(LocalDateTime.now()).tipoLancamento("credito").id(2).build();
+        Lancamento lancamento = Lancamento.builder().descricaoLancamento("lancamento de credito")
+                .dataLancamento("02/03/2023").tipoLancamento("credito").id(2).build();
         when(lancamentoRepository.findById(lancamento.getId())).thenReturn(Optional.of(lancamento));
         Optional<Lancamento> lancamentoEsperado = lancamentoService.findById(2);
         assertThat(lancamentoEsperado).isSameAs(lancamentoEsperado);

@@ -11,5 +11,7 @@ public class LancamentoDTO {
     private Integer id;
     private String descricãoLancamento;
     private String tipoLancamento;
+    private String dataLancamento;
+    private String horarioLancamento;
 
 }

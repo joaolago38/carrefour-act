@@ -32,9 +32,7 @@ public class LancamentoController {
         this.registry = registry;
     }
 
-    @PostMapping
-    @Timed(value = "lancamento.time", description = "Tempo de retorno Lancamento",
-            percentiles = {0.5, 0.90})
+    @RequestMapping(method =  RequestMethod.POST,consumes = "application/json")
     public ResponseEntity<Object> saveLancamento(@RequestBody @Valid LancamentoDTO lancamentoDTO) {
         var valorLancamento = lancamentoService.findById(lancamentoDTO.getId());
         if (valorLancamento.isPresent()) {
@@ -43,7 +41,6 @@ public class LancamentoController {
         }
         var lancamentoValor = new Lancamento();
         BeanUtils.copyProperties(lancamentoDTO, lancamentoValor);
-        lancamentoValor.setDataLancamento(LocalDateTime.now(ZoneId.of("UTC")));
         registry.counter("lancamento.counter").increment();
         return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoService.save(lancamentoValor));
     }
