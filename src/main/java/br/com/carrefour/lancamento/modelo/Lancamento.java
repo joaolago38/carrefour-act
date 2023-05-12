@@ -22,13 +22,19 @@ public class Lancamento {
     private String dataLancamento;
     @Column(name = "horarioLancamento")
     private String horarioLacmento;
+    @Column(name = "valorLancado")
+    private Integer valorLancado;
+    @Column(name = "valorConsolidado")
+    private Integer valorConsolidado;
 
-    public Lancamento(Integer id, String descricaoLancamento, String tipoLancamento, String dataLancamento, String horarioLacmento) {
+    public Lancamento(Integer id, String descricaoLancamento, String tipoLancamento, String dataLancamento, String horarioLacmento, Integer valorLancado, Integer valorConsolidado) {
         this.id = id;
         this.descricaoLancamento = descricaoLancamento;
         this.tipoLancamento = tipoLancamento;
         this.dataLancamento = dataLancamento;
         this.horarioLacmento = horarioLacmento;
+        this.valorLancado = valorLancado;
+        this.valorConsolidado = valorConsolidado;
     }
 
     public Lancamento(){

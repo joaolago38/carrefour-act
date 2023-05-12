@@ -9,9 +9,11 @@ import lombok.Setter;
 @Builder
 public class LancamentoDTO {
     private Integer id;
-    private String descricãoLancamento;
+    private String descricaoLancamento;
     private String tipoLancamento;
     private String dataLancamento;
     private String horarioLancamento;
+    private Integer valorLancado;
+    private Integer valorConsolidado;
 
 }

@@ -11,8 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -32,7 +32,7 @@ public class LancamentoController {
         this.registry = registry;
     }
 
-    @RequestMapping(method =  RequestMethod.POST,consumes = "application/json")
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Object> saveLancamento(@RequestBody @Valid LancamentoDTO lancamentoDTO) {
         var valorLancamento = lancamentoService.findById(lancamentoDTO.getId());
         if (valorLancamento.isPresent()) {
@@ -55,6 +55,21 @@ public class LancamentoController {
             return new ResponseEntity<>(lancamento.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/consolidado/{dataLancamento}")
+    public ResponseEntity<List<Lancamento>> buscaBalancoConsolidado(@PathVariable(value = "dataLancamento") String dataLancamento) {
+        try {
+            List<Lancamento> lanca = new ArrayList<Lancamento>();
+
+            List<Lancamento> lancamento = lancamentoService.buscaLancamentoCreditoPorData(dataLancamento);
+            if (lancamento.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(lanca, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
